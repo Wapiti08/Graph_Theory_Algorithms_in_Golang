@@ -1,31 +1,56 @@
 package main
 
 import (
+	// "container/list"
 	"fmt"
 )
 
-// Method 1 -- implemented with list package
-
-// type Graph struct {
-// 	// define the number of node --- Size
+// type SocialGraph struct {
+// 	// define the size
 // 	V int
-// 	// define the edge
-// 	List *[][]list
+// 	// define the type of array of int list, row is the list order, column is the list of neighbors
+// 	// whether to create array from make or just define?
+// 	Arr map[int]*list.List
 // }
 
-// func AddEdge(g Graph i,j int, undir bool) {
-// l = new g.
+// func AddEdge(g SocialGraph, i, j int, undir bool) {
+// 	/*
+// 		param g: instance of SocialGraph
+// 		param i: edge start
+// 		param j: edge end
+// 		param undir: whether directed
+// 	*/
+
+// 	g.Arr[i].PushBack(j)
+// 	if undir {
+// 		g.Arr[j].PushBack(i)
+// 	}
 
 // }
 
-// Method 2 --- Pure implementation with array
+// func PrintEdgeList(g SocialGraph) {
+// 	for i := 0; i <= g.V; i++ {
+// 		fmt.Printf("the neighbor of %d includes %d \n", i, g.Arr[i])
+// 	}
+// }
+
+// func main() {
+// 	graph := SocialGraph{V: 6, Arr: make(map[int]*list.List)}
+// 	AddEdge(graph, 1, 3, true)
+// 	AddEdge(graph, 2, 3, true)
+// 	AddEdge(graph, 2, 4, true)
+// 	AddEdge(graph, 1, 5, true)
+// 	AddEdge(graph, 1, 6, true)
+
+// 	PrintEdgeList(graph)
+// }
 
 type SocialGraph struct {
 	// define the size
 	V int
 	// define the type of array of int list, row is the list order, column is the list of neighbors
 	// whether to create array from make or just define?
-	Arr [][]int
+	Arr map[int][]int
 }
 
 func AddEdge(g SocialGraph, i, j int, undir bool) {
@@ -36,27 +61,26 @@ func AddEdge(g SocialGraph, i, j int, undir bool) {
 		param undir: whether directed
 	*/
 
-	g.Arr = append(g.Arr[i][], j)
+	g.Arr[i] = append(g.Arr[i], j)
 	if undir {
-		g.Arr = append(g.Arr[j][], i)
+		g.Arr[j] = append(g.Arr[j], i)
 	}
-
-	fmt.Println(g.Arr)
 
 }
 
 func PrintEdgeList(g SocialGraph) {
-	for i := range g.V {
-		fmt.Printf("the neighbor of %d includes %d",i, g.Arr[i])
+	for i := 0; i <= g.V; i++ {
+		fmt.Printf("the neighbor of %d includes %d \n", i, g.Arr[i])
 	}
 }
 
 func main() {
-	graph := SocialGraph()
-
+	graph := SocialGraph{V: 6, Arr: make(map[int][]int, 6)}
 	AddEdge(graph, 1, 3, true)
 	AddEdge(graph, 2, 3, true)
 	AddEdge(graph, 2, 4, true)
 	AddEdge(graph, 1, 5, true)
 	AddEdge(graph, 1, 6, true)
+
+	PrintEdgeList(graph)
 }
