@@ -77,7 +77,7 @@ func main() {
 		// define row
 		var row []int
 		for j := 0; j < 2; j++ {
-			fmt.Printf("请输入第 %d 行第 %d 列的元素: \n", i+1, j+1)
+			fmt.Printf("Please input the element of %d row and %d column: \n", i+1, j+1)
 			var num int
 			fmt.Scanf("%d\n", &num)
 			row = append(row, num)
