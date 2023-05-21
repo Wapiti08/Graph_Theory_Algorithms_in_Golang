@@ -68,6 +68,7 @@ func main() {
 	var n int
 	// receive the input
 	fmt.Println("Please input the largest node number: ")
+	// in case read the \n as a parameter
 	fmt.Scanf("%d\n", &n)
 
 	// define the 2d array --- edges
