@@ -145,7 +145,8 @@ func MaxDegree(n int, roads [][]int) int {
 	ans := 0
 	// traverse with two loops to find the largest
 	for i := 0; i < n; i++ {
-		for j := 0; j < n; j++ {
+		// avoid same value
+		for j := i + 1; j < n; j++ {
 			// minus the repeated edge
 			ans = max(deg[i]+deg[j]-edges[i][j], ans)
 		}
@@ -165,6 +166,6 @@ func max(a, b int) int {
 func main() {
 	n := 4
 	roads := [][]int{{0, 1}, {0, 3}, {1, 2}, {1, 3}}
-	result := maximalNetworkRank(n, roads)
+	result := MaxDegree(n, roads)
 	fmt.Println(result)
 }
