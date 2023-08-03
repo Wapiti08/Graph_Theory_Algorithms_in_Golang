@@ -32,6 +32,7 @@ func canVisitAllRooms(rooms [][]int) bool {
 }
 
 func main() {
+	// there is no need to visited in room order, but have to make sure all rooms can be visisted
 	rooms := [][]int{{2}, {}, {1}}
 	fmt.Println(canVisitAllRooms(rooms))
 }
