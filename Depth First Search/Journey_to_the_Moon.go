@@ -45,6 +45,7 @@ func addEdges(g *Graph, i int32, j int32, undir bool) *Graph {
 
 func dfshelper(g *Graph, node int32, visited []bool) int32 {
 	var size int32
+	// same as node number in a Graph
 	size = 1
 	visited[node] = true
 
