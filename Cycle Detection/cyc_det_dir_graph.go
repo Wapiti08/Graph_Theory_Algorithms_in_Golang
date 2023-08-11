@@ -25,45 +25,57 @@ func NewGraph(v int) *Graph {
 
 }
 
-func (g *Graph) addEdge(i, j int, undir bool) {
+func (g *Graph) addEdge(i, j int) {
 	g.Nbrs[i].PushBack(j)
-
-	if undir {
-		g.Nbrs[j].PushBack(i)
-	}
 }
 
-func (g *Graph) dfs(node int, visited []bool, parent int) bool {
+func (g *Graph) dfs(node int, visited []bool, stacked []bool) bool {
 	visited[node] = true
+	// make the current visisted node
+	stacked[node] = true
+
 	for e := g.Nbrs[node].Front(); e != nil; e = e.Next() {
 		nbr := e.Value.(int)
+		if stacked[nbr] {
+			fmt.Println("Found a cycle for current processing node")
+			return true
+		}
 		if !visited[nbr] {
-			nbrFoundCycle := g.dfs(nbr, visited, node)
+			nbrFoundCycle := g.dfs(nbr, visited, stacked)
 			if nbrFoundCycle {
 				return true
 			}
 		}
-		// core condition for judgement
-		if nbr != parent {
-			return true
-		}
 	}
+
+	stacked[node] = false
 	return false
 }
 
 func (g *Graph) contains_cycle() bool {
 	visited := make([]bool, g.V)
+	stacked := make([]bool, g.V)
 	for i := 0; i < g.V; i++ {
 		visited[i] = false
+		stacked[i] = false
 	}
-	return g.dfs(0, visited, -1)
+
+	for i := 0; i < g.V; i++ {
+		if !visited[i] {
+			if g.dfs(i, visited, stacked) {
+				return true
+			}
+		}
+	}
+	return false
+
 }
 
 func main() {
 	g := NewGraph(3)
-	g.addEdge(0, 1, true)
-	g.addEdge(1, 2, true)
-	g.addEdge(2, 0, true)
+	g.addEdge(0, 1)
+	g.addEdge(1, 2)
+	// g.addEdge(2, 0)
 
 	fmt.Println(g.contains_cycle())
 }
